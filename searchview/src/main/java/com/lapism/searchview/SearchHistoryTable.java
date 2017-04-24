@@ -43,8 +43,8 @@ public class SearchHistoryTable {
 
     public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
-        if (!checkText(item.get_text().toString())) {
-            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
+        if (!checkText(item.getText().toString())) {
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.getText().toString());
             if (databaseKey != null) {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY, databaseKey);
             }
@@ -64,7 +64,7 @@ public class SearchHistoryTable {
         String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
                 " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
                 " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " = ?";
-        Cursor res = db.rawQuery(query, new String[]{item.get_text().toString()});
+        Cursor res = db.rawQuery(query, new String[]{item.getText().toString()});
         res.moveToFirst();
         int id = res.getInt(0);
         close();

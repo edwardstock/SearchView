@@ -18,6 +18,7 @@ public class SearchItem implements Parcelable {
     };
     private int icon;
     private CharSequence text;
+    private String tag;
 
     public SearchItem() {
     }
@@ -36,7 +37,7 @@ public class SearchItem implements Parcelable {
         this.text = in.readParcelable(CharSequence.class.getClassLoader());
     }
 
-    public int get_icon() {
+    public int getIconResource() {
         return this.icon;
     }
 
@@ -44,7 +45,11 @@ public class SearchItem implements Parcelable {
         this.icon = icon;
     }
 
-    public CharSequence get_text() {
+    public String getTag() {
+    	return tag;
+    }
+
+    public CharSequence getText() {
         return this.text;
     }
 

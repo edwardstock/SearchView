@@ -3,6 +3,7 @@ package com.lapism.searchview;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -140,10 +141,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else {
             viewHolder.text.setText(item.getText());
         }
-	    
+
         viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
     }
-    
+
     private View.OnClickListener bindSuggestionClickListener(final ResultViewHolder viewHolder, final int position) {
     	return new View.OnClickListener() {
 		    @Override
@@ -203,6 +204,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(listener, null);
     }
 
+    public void addOnSearchItemClickListener(OnSearchItemClickListener listener) {
+    	addOnSearchItemClickListener(listener, null);
+    }
+
+	/**
+	 * Use this if you need to get back SearchItem
+	 * @param listener
+	 */
+	public void addOnSearchItemClickListener(OnSearchItemClickListener listener, @Nullable Integer position) {
+    	if(mSearchItemClickListeners == null) {
+    		mSearchItemClickListeners = new ArrayList<>();
+	    }
+
+	    if(position == null) {
+    		mSearchItemClickListeners.add(listener);
+	    } else {
+    		mSearchItemClickListeners.add(position, listener);
+	    }
+
+    }
+
     public void addOnItemClickListener(OnItemClickListener listener, Integer position) {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
@@ -241,7 +263,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
-    
+
     public interface OnSearchItemClickListener {
     	void onItemClick(View view, int position, SearchItem searchItem);
     }
